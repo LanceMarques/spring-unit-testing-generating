@@ -4,7 +4,6 @@ import com.tcc.springunittestinggenerating.utils.MockMvcRequestBuilder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -12,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(EntityController.class)
@@ -27,7 +27,9 @@ public class EntityControllerTest {
 
     @BeforeAll
     public static void setup(){
-        baseUrl = "/entity/";
+
+        baseUrl = EntityController.class.getDeclaredAnnotation(RequestMapping.class).value()[0];
+
     }
 
     @Test
@@ -44,7 +46,7 @@ public class EntityControllerTest {
     @Test
     public void buscarPorIdTest() {
 
-        final MockHttpServletRequestBuilder servletRequestBuilder = MockMvcRequestBuilders.get(baseUrl+"id/1");
+        final MockHttpServletRequestBuilder servletRequestBuilder = MockMvcRequestBuilders.get(baseUrl+"/id/1");
 
         final MockMvcRequestBuilder mockMvcRequestBuilder = new MockMvcRequestBuilder(this.mockMvc, servletRequestBuilder);
 
@@ -66,7 +68,7 @@ public class EntityControllerTest {
     @Test
     public void atualizarTest() {
 
-        final MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put(baseUrl+"id/1");
+        final MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put(baseUrl+"/id/1");
 
         final MockMvcRequestBuilder mockMvcRequestBuilder = new MockMvcRequestBuilder(this.mockMvc, requestBuilder);
 
@@ -77,7 +79,7 @@ public class EntityControllerTest {
     @Test
     public void excluirTest() {
 
-        final MockHttpServletRequestBuilder servletRequestBuilder = MockMvcRequestBuilders.delete(baseUrl+"id/1");
+        final MockHttpServletRequestBuilder servletRequestBuilder = MockMvcRequestBuilders.delete(baseUrl+"/id/1");
 
         final MockMvcRequestBuilder mockMvcRequestBuilder = new MockMvcRequestBuilder(this.mockMvc, servletRequestBuilder);
 
