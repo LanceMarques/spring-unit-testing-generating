@@ -13,6 +13,9 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import static com.tcc.springunittestinggenerating.utils.StringBounderPopulator.initializeSizeAnnotedStringFields;
+import static com.tcc.springunittestinggenerating.utils.enums.BounderTestType.*;
+
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(EntityController.class)
 public class EntityControllerTest {
@@ -22,6 +25,9 @@ public class EntityControllerTest {
 
     @MockBean
     private EntityService service;
+
+    //@MockBean
+    //private Field service = ReflectionUtils.findFields(EntityController.class, field -> field.isAnnotationPresent(Autowired.class), TOP_DOWN).stream().findFirst().get();
 
     private static String baseUrl;
 
@@ -55,13 +61,62 @@ public class EntityControllerTest {
     }
 
     @Test
-    public void criarTest() {
+    public void criarTest_success_minimum_allowed_string_size() {
+
+        final EntityModel entityModel = new EntityModel();
+
+        initializeSizeAnnotedStringFields(entityModel, MINIMUM_ALLOWED);
 
         final MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post(baseUrl);
 
         final MockMvcRequestBuilder mockMvcRequestBuilder = new MockMvcRequestBuilder(this.mockMvc, requestBuilder);
 
-        mockMvcRequestBuilder.acceptApplicationJson().content(new EntityModel()).contentTypeApplicationJson().expect201();
+        mockMvcRequestBuilder.acceptApplicationJson().content(entityModel).contentTypeApplicationJson().expect201();
+
+    }
+
+    @Test
+    public void criarTest_success_maximum_allowed_string_size() {
+
+        final EntityModel entityModel = new EntityModel();
+
+        initializeSizeAnnotedStringFields(entityModel, MAXIMUM_ALLOWED);
+
+        final MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post(baseUrl);
+
+        final MockMvcRequestBuilder mockMvcRequestBuilder = new MockMvcRequestBuilder(this.mockMvc, requestBuilder);
+
+        mockMvcRequestBuilder.acceptApplicationJson().content(entityModel).contentTypeApplicationJson().expect201();
+
+    }
+
+    @Test
+    public void criarTest_fail_string_size_underflow() {
+
+        final EntityModel entityModel = new EntityModel();
+
+        initializeSizeAnnotedStringFields(entityModel, UNDERFLOW);
+
+        final MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post(baseUrl);
+
+        final MockMvcRequestBuilder mockMvcRequestBuilder = new MockMvcRequestBuilder(this.mockMvc, requestBuilder);
+
+        mockMvcRequestBuilder.acceptApplicationJson().content(entityModel).contentTypeApplicationJson().expect400();
+
+    }
+
+    @Test
+    public void criarTest_fail_string_size_overflow() {
+
+        final EntityModel entityModel = new EntityModel();
+
+        initializeSizeAnnotedStringFields(entityModel, OVERFLOW);
+
+        final MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post(baseUrl);
+
+        final MockMvcRequestBuilder mockMvcRequestBuilder = new MockMvcRequestBuilder(this.mockMvc, requestBuilder);
+
+        mockMvcRequestBuilder.acceptApplicationJson().content(entityModel).contentTypeApplicationJson().expect400();
 
     }
 
