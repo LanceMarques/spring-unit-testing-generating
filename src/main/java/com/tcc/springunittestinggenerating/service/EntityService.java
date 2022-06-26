@@ -1,6 +1,8 @@
-package com.tcc.springunittestinggenerating.entity;
+package com.tcc.springunittestinggenerating.service;
 
+import com.tcc.springunittestinggenerating.repository.EntityRepository;
 import com.tcc.springunittestinggenerating.exceptions.EntityNotFoundException;
+import com.tcc.springunittestinggenerating.model.EntityModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

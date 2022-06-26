@@ -1,5 +1,7 @@
-package com.tcc.springunittestinggenerating.entity;
+package com.tcc.springunittestinggenerating.controller;
 
+import com.tcc.springunittestinggenerating.model.EntityModel;
+import com.tcc.springunittestinggenerating.service.EntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

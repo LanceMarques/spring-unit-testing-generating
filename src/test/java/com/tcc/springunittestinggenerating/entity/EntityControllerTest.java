@@ -1,5 +1,8 @@
 package com.tcc.springunittestinggenerating.entity;
 
+import com.tcc.springunittestinggenerating.controller.EntityController;
+import com.tcc.springunittestinggenerating.model.EntityModel;
+import com.tcc.springunittestinggenerating.service.EntityService;
 import com.tcc.springunittestinggenerating.utils.MockMvcRequestBuilder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
