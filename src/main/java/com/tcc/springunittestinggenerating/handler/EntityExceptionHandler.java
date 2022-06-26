@@ -39,14 +39,14 @@ public class EntityExceptionHandler extends ResponseEntityExceptionHandler {
         messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
     String mensagemDev = ex.getCause().toString();
 
-    List<Erro> erros = Arrays.asList(new Erro(mensagemUsr, mensagemDev));
+    List<Error> erros = Arrays.asList(new Error(mensagemUsr, mensagemDev));
     return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
   }
 
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
       HttpHeaders headers, HttpStatus status, WebRequest request) {
-    List<Erro> erros = criarListaDeErros(ex.getBindingResult());
+    List<Error> erros = criarListaDeErros(ex.getBindingResult());
     return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
   }
 
@@ -56,7 +56,7 @@ public class EntityExceptionHandler extends ResponseEntityExceptionHandler {
     String mensagemUsr = messageSource.getMessage("recurso.operacao-nao-permitida", null,
         LocaleContextHolder.getLocale());
     String mensagemDev = ExceptionUtils.getRootCauseMessage(ex);
-    List<Erro> erros = Arrays.asList(new Erro(mensagemUsr, mensagemDev));
+    List<Error> erros = Arrays.asList(new Error(mensagemUsr, mensagemDev));
     return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
   }
 
@@ -66,7 +66,7 @@ public class EntityExceptionHandler extends ResponseEntityExceptionHandler {
     String mensagemUsr = messageSource.getMessage("recurso.dados-incompletos", null,
         LocaleContextHolder.getLocale());
     String mensagemDev = ExceptionUtils.getRootCauseMessage(ex);
-    List<Erro> erros = Arrays.asList(new Erro(mensagemUsr, mensagemDev));
+    List<Error> erros = Arrays.asList(new Error(mensagemUsr, mensagemDev));
     return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
   }
 
@@ -76,7 +76,7 @@ public class EntityExceptionHandler extends ResponseEntityExceptionHandler {
     String mensagemUsr = messageSource.getMessage("recurso.cadastro-duplicado", null,
         LocaleContextHolder.getLocale());
     String mensagemDev = ExceptionUtils.getRootCauseMessage(ex);
-    List<Erro> erros = Arrays.asList(new Erro(mensagemUsr, mensagemDev));
+    List<Error> erros = Arrays.asList(new Error(mensagemUsr, mensagemDev));
     return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
   }
 
@@ -86,17 +86,17 @@ public class EntityExceptionHandler extends ResponseEntityExceptionHandler {
     String mensagemUsr = messageSource.getMessage("recurso.nao-encontrado", null,
             LocaleContextHolder.getLocale());
     String mensagemDev = ExceptionUtils.getRootCauseMessage(ex);
-    List<Erro> erros = Arrays.asList(new Erro(mensagemUsr, mensagemDev));
+    List<Error> erros = Arrays.asList(new Error(mensagemUsr, mensagemDev));
     return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 
-  private List<Erro> criarListaDeErros(BindingResult bindingResult) {
-    List<Erro> erros = new ArrayList<>();
+  private List<Error> criarListaDeErros(BindingResult bindingResult) {
+    List<Error> erros = new ArrayList<>();
 
     for (FieldError fieldError : bindingResult.getFieldErrors()) {
       String mensagemUsr = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
       String mensagemDev = fieldError.toString();
-      erros.add(new Erro(mensagemUsr, mensagemDev));
+      erros.add(new Error(mensagemUsr, mensagemDev));
     }
     return erros;
   }

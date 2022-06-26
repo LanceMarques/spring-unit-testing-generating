@@ -1,6 +1,6 @@
 package com.tcc.springunittestinggenerating.handler;
 
-public class Erro {
+public class Error {
 
 	private String mensagemUsuario;
 
@@ -22,13 +22,13 @@ public class Erro {
 		this.mensagemDesenvolvedor = mensagemDesenvolvedor;
 	}
 
-	public Erro(String mensagemUsuario, String mensagemDesenvolvedor) {
+	public Error(String mensagemUsuario, String mensagemDesenvolvedor) {
 		
 		this.mensagemUsuario = mensagemUsuario;
 		this.mensagemDesenvolvedor = mensagemDesenvolvedor;
 	}
 
-	public Erro() {
+	public Error() {
 
 	}
 
