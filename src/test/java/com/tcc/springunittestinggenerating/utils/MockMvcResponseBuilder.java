@@ -69,15 +69,6 @@ public class MockMvcResponseBuilder {
         return this;
     }
 
-    public MockMvcResponseBuilder expectHeader(String name, String value) {
-        try {
-            resultActions.andExpect(header().string(name, new StringMatcher(value)));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return this;
-    }
-
     public <T> T returnResponseBody() {
         try {
             return objectMapper.readValue(responseBody(), new TypeReference<T>() { });
